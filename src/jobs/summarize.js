@@ -41,16 +41,23 @@ function genConfig(model) {
 }
 
 async function callGemini({ key, model, prompt }) {
-  const res = await fetch(`${ENDPOINT}${encodeURIComponent(model)}:generateContent`, {
+  const post = (generationConfig) => fetch(`${ENDPOINT}${encodeURIComponent(model)}:generateContent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-    body: JSON.stringify({
-      contents: [{ role: 'user', parts: [{ text: prompt }] }],
-      generationConfig: genConfig(model),
-    }),
+    body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig }),
     signal: AbortSignal.timeout(30000),
   });
-  if (!res.ok) throw Object.assign(new Error('Gemini HTTP ' + res.status), { status: res.status });
+  let cfg = genConfig(model);
+  let res = await post(cfg);
+  // Newer models may reject the thinking setting: retry once without it.
+  if (res.status === 400 && cfg.thinkingConfig) {
+    delete cfg.thinkingConfig;
+    res = await post(cfg);
+  }
+  if (!res.ok) {
+    const body = String(await res.text().catch(() => '')).replace(/AIza[\w-]+/g, '[key]').replace(/\s+/g, ' ').slice(0, 220);
+    throw Object.assign(new Error('Gemini HTTP ' + res.status + (body ? ': ' + body : '')), { status: res.status });
+  }
   const j = await res.json();
   const parts = j && j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts;
   return (parts || []).map((p) => p.text || '').join(' ');
@@ -66,7 +73,7 @@ async function run() {
       AND COALESCE(kev_date, published) >= strftime('%Y-%m-%dT%H:%M:%fZ','now','-7 days')
     ORDER BY kev DESC, CASE severity WHEN 'Critical' THEN 0 WHEN 'High' THEN 1 ELSE 2 END, COALESCE(kev_date, published) DESC
     LIMIT ?`).all(cfg.cap);
-  let ok = 0, failed = 0;
+  let ok = 0, failed = 0, lastErr = '';
   for (const item of rows) {
     try {
       const text = sanitizeSummary(await callGemini({ key: cfg.key, model: cfg.model, prompt: buildPrompt(item) }), 800);
@@ -76,14 +83,15 @@ async function run() {
       ok++;
     } catch (e) {
       failed++;
+      lastErr = String((e && e.message) || e).slice(0, 220);
       db.prepare('UPDATE items SET sum_fail = sum_fail + 1 WHERE id = ?').run(item.id);
-      if (e.status === 429 || e.status === 403 || e.status === 400) {
-        return `stopped after HTTP ${e.status}: ${ok} summarised, ${failed} failed`;
+      if ([400, 403, 404, 429].includes(e.status)) {
+        return `summaries stopped: ${ok} summarised, ${failed} failed. ${lastErr}`;
       }
     }
     await sleep(cfg.delayMs);
   }
-  return `${ok} summarised, ${failed} failed, cap ${cfg.cap}`;
+  return `summaries: ${ok} summarised, ${failed} failed, cap ${cfg.cap}` + (lastErr ? `. Last error: ${lastErr}` : '');
 }
 
 async function testConnection() {
