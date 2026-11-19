@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Super Split</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="util"><div class="wrap util-in">
+    <div class="util-actions">
+      <button class="icon-btn" id="themeBtn" type="button" data-mode="light" aria-label="Switch to dark theme"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <span class="user-chip" id="userChip"><span class="avatar" id="avatar">P</span><button class="util-btn" id="signOutBtn" type="button">Sign out</button></span>
+      <button class="util-btn" id="signInBtn" type="button">Sign in</button>
+    </div>
+  </div></div>
+  <div class="wrap main-in">
+    <a class="brand" href="#overview" aria-label="Super Split home">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="7" fill="#fff"/><path d="M1 8a7 7 0 0 1 7-7h14L1 22z" fill="#D1500F"/><path d="M29 22a7 7 0 0 1-7 7H8L29 8z" fill="#12386B"/></svg>
+      Super Split
+    </a>
+    <nav class="tabs" role="tablist" aria-label="Sections" id="tabs"></nav>
+    <button class="btn btn-accent" type="button" id="ctaBook">Book a consultation</button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- OVERVIEW -->
+<div class="panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" hidden>
+  <div class="hero"><div class="wrap hero-in">
+    <div>
+      <div class="eyebrow">Threat intelligence · Self-assessment · Security services</div>
+      <h1>Security that explains itself.</h1>
+      <p class="lead">Super Split tracks the threat climate, scores your team's security basics and tells you what to fix first. Plain language, with a source behind every figure.</p>
+      <div class="cta-row">
+        <button class="btn btn-accent" type="button" data-go="quiz">Take the 8-minute check</button>
+        <button class="btn btn-line" type="button" data-go="feed">Read today's feed</button>
+      </div>
+    </div>
+    <div class="card meter" id="meterCard">
+      <div class="meter-top">
+        <div><h2>Threat level meter</h2><div class="note">Super Split's own indicator, not an official alert level.</div></div>
+        <span class="tag" id="meterTag">Sample data</span>
+      </div>
+      <svg class="gauge" viewBox="0 0 300 176" role="img" aria-labelledby="gTitle" id="gauge">
+        <title id="gTitle">Threat level gauge</title>
+        <g id="arcs"></g>
+        <g class="needle" id="needle"><line x1="150" y1="150" x2="150" y2="46" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></g>
+        <circle cx="150" cy="150" r="9" fill="currentColor"/>
+        <text x="22" y="170" font-size="11" text-anchor="middle">0</text>
+        <text x="278" y="170" font-size="11" text-anchor="middle">100</text>
+      </svg>
+      <div class="score-read"><div class="score-num mono" id="scoreNum">0</div><div class="score-band" id="scoreBand">Calculating</div></div>
+      <div id="sigs"></div>
+      <details class="how">
+        <summary>How this is calculated</summary>
+        <p class="note" style="margin-top:8px">Each signal is scaled against its own 90th percentile over the previous 30 days, then weighted. Move the sliders to see how the score responds.</p>
+        <div class="formula">score = 100 × Σ weight × min(1, signal ÷ p90)</div>
+        <div id="sliders"></div>
+      </details>
+    </div>
+  </div></div>
+
+  <section class="block"><div class="wrap">
+    <div class="head-row"><div><h2>Everything in one place</h2><p class="sub">Five tools, each on its own tab. Use them separately or follow the path from awareness to action.</p></div></div>
+    <div class="grid g4" id="tiles"></div>
+  </div></section>
+
+  <section class="block" style="padding-top:0"><div class="wrap">
+    <div class="head-row"><div><h2>Today's priority items</h2><p class="sub">The three items most worth your attention, summarised by Gemini and linked to their sources.</p></div><button class="btn btn-quiet btn-sm" type="button" data-go="feed">Open the full feed</button></div>
+    <div class="feed" id="homeFeed"></div>
+  </div></section>
+</div>
+
+<!-- FEED -->
+<div class="panel" id="panel-feed" role="tabpanel" aria-labelledby="tab-feed" hidden>
+  <div class="hero hero-sm"><div class="wrap hero-in">
+    <div class="eyebrow">Threat Intelligence &amp; Vulnerability Feed</div>
+    <h1>What changed today, and what to do about it</h1>
+    <p class="lead">CVEs, breach summaries and patch advisories, filtered by severity, vendor and industry. Short briefs are written by the Gemini free API and always link to the original source.</p>
+  </div></div>
+  <section class="block"><div class="wrap">
+    <div class="card digest" id="digest"></div>
+    <div class="filters">
+      <div class="field" style="flex:1 1 220px"><label for="fSearch">Search</label><input class="input" id="fSearch" type="search" placeholder="Vendor, product or keyword" maxlength="60"></div>
+      <div class="field" style="flex:0 1 170px"><label for="fVendor">Vendor</label><select class="select" id="fVendor"></select></div>
+      <div class="field" style="flex:0 1 170px"><label for="fIndustry">Industry</label><select class="select" id="fIndustry"></select></div>
+      <div class="field" style="flex:0 1 150px"><label for="fType">Type</label><select class="select" id="fType"></select></div>
+    </div>
+    <div class="filters">
+      <div class="chips" id="sevChips" role="group" aria-label="Severity"></div>
+      <label class="check" style="margin-left:auto"><input type="checkbox" id="fKev"> Known exploited only</label>
+    </div>
+    <p class="note" id="feedCount" role="status" style="margin-bottom:14px"></p>
+    <div class="feed" id="feedList"></div>
+    <p class="note" id="feedNote" style="margin-top:20px">Summaries are generated by an AI model from public advisory text and may contain mistakes. Check the source before acting. Vendors and records shown here are fictional samples.</p>
+  </div></section>
+</div>
+
+<!-- QUIZ -->
+<div class="panel" id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" hidden>
+  <div class="hero hero-sm"><div class="wrap hero-in">
+    <div class="eyebrow">Security Risk &amp; Compliance Check</div>
+    <h1>How solid are your security basics?</h1>
+    <p class="lead">Twenty-five questions across five areas, about eight minutes. You get a score, your five most useful fixes and a pointer to the SOC 2 area each one supports.</p>
+  </div></div>
+  <section class="block"><div class="wrap" style="max-width:900px" id="quizRoot"></div></section>
+</div>
+
+<!-- PRIVACY -->
+<div class="panel" id="panel-privacy" role="tabpanel" aria-labelledby="tab-privacy" hidden>
+  <div class="hero hero-sm"><div class="wrap hero-in">
+    <div class="eyebrow">Privacy &amp; Digital Hygiene Directory</div>
+    <h1>Tools worth trusting, and how to configure them</h1>
+    <p class="lead">A short, hand-picked list of open-source tools, privacy-friendly browsers and hardening guides. No affiliate links, no sponsored placement.</p>
+  </div></div>
+  <section class="block"><div class="wrap">
+    <div class="criteria">
+      <div><b>Open or audited</b>Open-source licence or a published independent audit.</div>
+      <div><b>Actively maintained</b>A release within the last 12 months.</div>
+      <div><b>Clear data practices</b>Plain statements on what is collected and why.</div>
+      <div><b>Re-reviewed quarterly</b>Stale entries are flagged or removed.</div>
+    </div>
+    <div class="filters">
+      <div class="field" style="flex:1 1 220px"><label for="dSearch">Search</label><input class="input" id="dSearch" type="search" placeholder="Tool name or purpose" maxlength="60"></div>
+      <div class="field" style="flex:0 1 190px"><label for="dPlat">Platform</label><select class="select" id="dPlat"></select></div>
+    </div>
+    <div class="chips" id="catChips" role="group" aria-label="Category" style="margin-bottom:20px"></div>
+    <p class="note" id="dirCount" role="status" style="margin-bottom:14px"></p>
+    <div class="grid g3" id="dirGrid"></div>
+    <p class="note" id="dirNote" style="margin-top:16px">Sample entries. Licences, platforms and review dates must be verified against each project before this list goes live.</p>
+
+    <div class="head-row" style="margin-top:56px"><div><h2>Hardened configuration guides</h2><p class="sub">Short, tested steps written by Super Split. The first guide reuses the same hardening used on this site's own server.</p></div></div>
+    <div class="grid g2">
+      <div class="card panel-pad">
+        <span class="pill ok">Draft</span>
+        <h3 style="margin-top:10px">Harden an Ubuntu web server</h3>
+        <p class="note">Firewall, brute-force protection, key-only SSH and automatic updates.</p>
+        <pre class="code">sudo ufw default deny incoming
+sudo ufw allow 22,80,443/tcp
+sudo ufw enable
+sudo apt install fail2ban unattended-upgrades
+# /etc/ssh/sshd_config
+PasswordAuthentication no
+PermitRootLogin no
+sudo nginx -t &amp;&amp; sudo systemctl reload nginx</pre>
+      </div>
+      <div class="card panel-pad">
+        <span class="pill neutral">Planned</span>
+        <h3 style="margin-top:10px">More guides on the way</h3>
+        <ul class="list-check">
+          <li>Lock down SSH access</li>
+          <li>A hardened Firefox profile</li>
+          <li>Securing a home router</li>
+          <li>Backups that survive ransomware</li>
+        </ul>
+      </div>
+    </div>
+  </div></section>
+</div>
+
+<!-- SERVICES -->
+<div class="panel" id="panel-services" role="tabpanel" aria-labelledby="tab-services" hidden>
+  <div class="hero hero-sm"><div class="wrap hero-in">
+    <div class="eyebrow">Managed Security &amp; Penetration Testing</div>
+    <h1>Clear scope. Clear timelines. No scare tactics.</h1>
+    <p class="lead">Each service states what is in scope, what is not and what you receive. Response targets are published, and every engagement starts with written authorisation.</p>
+    <div class="cta-row"><button class="btn btn-accent" type="button" id="svcBook">Book a free consultation</button></div>
+  </div></div>
+  <section class="block"><div class="wrap">
+    <div class="head-row"><div><h2>Services</h2></div></div>
+    <div class="grid g2" id="svcGrid"></div>
+  </div></section>
+  <section class="block" style="padding-top:0"><div class="wrap">
+    <div class="head-row"><div><h2>How an engagement runs</h2><p class="sub">Testing starts only after a signed scope and written authorisation.</p></div></div>
+    <ol class="steps" style="margin:0;padding:0">
+      <li><b>Scope</b>We agree targets, dates and exclusions in writing.</li>
+      <li><b>Authorise</b>You sign the rules of engagement.</li>
+      <li><b>Test</b>Work happens inside the agreed window.</li>
+      <li><b>Report</b>Findings by severity, with evidence and fixes.</li>
+      <li><b>Retest</b>We confirm the fixes hold.</li>
+    </ol>
+  </div></section>
+  <section class="block" style="padding-top:0"><div class="wrap">
+    <div class="head-row"><div><h2>Response targets</h2><p class="sub">Example values. Only targets that can honestly be met get published.</p></div></div>
+    <div class="card scroll"><table class="tbl">
+      <thead><tr><th>Severity</th><th>Example</th><th>First response</th><th>Updates</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pill sev-critical">Critical</span></td><td>Active compromise</td><td class="mono">1 hour</td><td>Every 4 hours until contained</td></tr>
+        <tr><td><span class="pill sev-high">High</span></td><td>Exploitable flaw in production</td><td class="mono">4 hours</td><td>Daily</td></tr>
+        <tr><td><span class="pill sev-medium">Medium</span></td><td>Weakness with a workaround</td><td class="mono">1 business day</td><td>Every 3 business days</td></tr>
+        <tr><td><span class="pill sev-low">Low</span></td><td>Question or minor issue</td><td class="mono">3 business days</td><td>On resolution</td></tr>
+      </tbody></table></div>
+  </div></section>
+  <section class="block" style="padding-top:0"><div class="wrap">
+    <div class="head-row"><div><h2>Case studies</h2><p class="sub">Written to a fixed template: context, scope, approach, findings, outcome and retest.</p></div></div>
+    <div class="grid g2">
+      <div class="card panel-pad"><span class="pill neutral">Sample scenario</span><h3 style="margin-top:10px">Web app test for a 12-person SaaS team</h3>
+        <p class="note" style="margin-top:6px">Context: a customer portal heading into its first enterprise sale. Scope: the portal and its API. Outcome: findings grouped by severity, fixes verified in a retest.</p></div>
+      <div class="card panel-pad"><span class="pill neutral">Sample scenario</span><h3 style="margin-top:10px">Posture review for a small clinic group</h3>
+        <p class="note" style="margin-top:6px">Context: shared logins and untested backups. Scope: accounts, devices and recovery. Outcome: a ranked action plan the team could finish in a quarter.</p></div>
+    </div>
+    <p class="note" style="margin-top:12px">Real case studies replace these once client permission is in place. Clients, results and testimonials are never invented.</p>
+  </div></section>
+  <section class="block" style="padding-top:0" id="bookSection"><div class="wrap" style="max-width:860px">
+    <div class="head-row"><div><h2>Book a consultation</h2><p class="sub">Tell us a little about your team. We reply with proposed times.</p></div></div>
+    <div class="card panel-pad">
+      <form id="bookForm" novalidate>
+        <div class="form-grid">
+          <div class="field" id="f-name"><label for="bName">Your name</label><input class="input" id="bName" autocomplete="name" maxlength="80"><div class="err"></div></div>
+          <div class="field" id="f-email"><label for="bEmail">Work email</label><input class="input" id="bEmail" type="email" autocomplete="email" maxlength="120"><div class="err"></div></div>
+          <div class="field" id="f-size"><label for="bSize">Organisation size</label><select class="select" id="bSize"><option value="">Choose one</option><option>1 to 10 people</option><option>11 to 50 people</option><option>51 to 200 people</option><option>More than 200</option></select><div class="err"></div></div>
+          <div class="field" id="f-svc"><label for="bSvc">Service</label><select class="select" id="bSvc"><option value="">Choose one</option></select><div class="err"></div></div>
+          <div class="field" id="f-time"><label for="bTime">Preferred time</label><select class="select" id="bTime"><option>Weekday mornings</option><option>Weekday afternoons</option><option>Either works</option></select><div class="err"></div></div>
+          <div class="field full" id="f-msg"><label for="bMsg">Anything we should know (optional)</label><textarea class="textarea" id="bMsg" maxlength="600"></textarea><div class="err"></div></div>
+          <div class="hp" aria-hidden="true"><label for="bWeb">Leave this empty</label><input id="bWeb" tabindex="-1" autocomplete="off"></div>
+          <div class="full"><label class="check" id="f-consent"><input type="checkbox" id="bConsent"><span>I agree that Super Split may store these details to reply to this request. They are kept for 90 days.</span></label><div class="err" id="consentErr"></div></div>
+          <div class="full"><button class="btn btn-accent" type="submit">Request a consultation</button></div>
+        </div>
+      </form>
+      <div class="success" id="bookOk" hidden><b>Request checked.</b> <span id="bookOkMsg"></span></div>
+    </div>
+  </div></section>
+</div>
+
+<!-- ADMIN -->
+<div class="panel" id="panel-admin" role="tabpanel" aria-labelledby="tab-admin" hidden>
+  <div class="hero hero-sm"><div class="wrap hero-in">
+    <div class="eyebrow">Admin</div>
+    <h1>Integrations and scheduled jobs</h1>
+    <p class="lead">Where the Gemini API connection and data jobs are managed. On the live site this page sits on the admin subdomain, behind a login.</p>
+  </div></div>
+  <section class="block"><div class="wrap">
+    <div class="banner" id="adminBanner"><span aria-hidden="true">⚠</span><span>Preview only. Nothing typed here is saved or sent anywhere. On the live site the key is submitted once over HTTPS, stored on the server and never shown in the browser again.</span></div>
+    <div class="admin-grid">
+      <div class="card panel-pad">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:start"><div><h3>Gemini API</h3><p class="note">Writes the short briefs in the feed and the daily digest.</p></div><span class="pill neutral" id="gemStatus">Not connected</span></div>
+        <form id="gemForm" novalidate style="margin-top:16px;display:grid;gap:16px">
+          <div class="field" id="g-key"><label for="gKey">API key</label>
+            <div class="pw"><input class="input" id="gKey" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your key from Google AI Studio"><button type="button" id="gShow" aria-label="Show key">Show</button></div>
+            <div class="err"></div></div>
+          <div class="form-grid">
+            <div class="field" id="g-model"><label for="gModel">Model name</label><input class="input" id="gModel" placeholder="As listed in AI Studio" maxlength="60"><div class="err"></div></div>
+            <div class="field" id="g-cap"><label for="gCap">Summaries per ingest run</label><input class="input" id="gCap" type="number" min="1" max="200" value="40"><div class="err"></div></div>
+          </div>
+          <div class="field"><label for="nvdKey">NVD API key (optional)</label><input class="input" id="nvdKey" type="password" autocomplete="off" placeholder="Raises the NVD request limit"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-accent" type="submit">Save to server</button><button class="btn btn-quiet" type="button" id="gTest">Test connection</button></div>
+        </form>
+      </div>
+      <div style="display:grid;gap:20px">
+        <div class="card panel-pad"><h3>How the key is handled</h3>
+          <ul class="list-check">
+            <li>Stored in the server environment, never in the repo</li>
+            <li>Calls happen on the server, never in the browser</li>
+            <li>Only public advisory text is sent to the model</li>
+            <li>Each item is summarised once, then cached</li>
+            <li>If Gemini fails, the card shows the NVD description</li>
+          </ul></div>
+        <div class="card panel-pad"><h3>Free-tier guardrails</h3>
+          <p class="note">Model names and free-tier limits change. Set the daily cap below what AI Studio shows for your account.</p></div>
+      </div>
+    </div>
+    <div class="head-row" style="margin-top:40px"><div><h2>Scheduled jobs</h2></div></div>
+    <div class="card scroll"><table class="tbl">
+      <thead><tr><th>Job</th><th>Schedule</th><th>What it does</th><th>Status</th></tr></thead>
+      <tbody id="jobsBody">
+        <tr><td><b>Feed ingest</b></td><td class="mono">Every 2 hours</td><td>Pulls NVD, CISA KEV and RSS items into the database</td><td><span class="pill neutral">Not scheduled</span></td></tr>
+        <tr><td><b>AI summaries</b></td><td class="mono">After each ingest</td><td>Summarises new priority items, capped per run</td><td><span class="pill neutral">Not scheduled</span></td></tr>
+        <tr><td><b>Threat meter</b></td><td class="mono">Hourly</td><td>Recomputes the four signals and the score</td><td><span class="pill neutral">Not scheduled</span></td></tr>
+        <tr><td><b>Daily digest</b></td><td class="mono">Once a day</td><td>Builds the five-item brief page</td><td><span class="pill neutral">Not scheduled</span></td></tr>
+      </tbody></table></div>
+    <p class="note" id="adminCounts" style="margin-top:12px"></p>
+  </div></section>
+</div>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <div class="foot-grid">
+    <div><div class="brand" style="padding:0 0 10px"><svg width="26" height="26" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="7" fill="#fff"/><path d="M1 8a7 7 0 0 1 7-7h14L1 22z" fill="#D1500F"/><path d="M29 22a7 7 0 0 1-7 7H8L29 8z" fill="#12386B"/></svg>Super Split</div><p>Clear security guidance for small teams.</p></div>
+    <div><h4>Product</h4><button class="lnk" data-go="feed">Threat feed</button><button class="lnk" data-go="quiz">Posture check</button><button class="lnk" data-go="privacy">Privacy hub</button></div>
+    <div><h4>Services</h4><button class="lnk" data-go="services">Penetration testing</button><button class="lnk" data-go="services">Managed monitoring</button><button class="lnk" data-go="services">Book a consultation</button></div>
+    <div><h4>Site</h4><button class="lnk" data-go="overview">Overview</button><button class="lnk" data-go="admin">Admin</button></div>
+  </div>
+</div></footer>
+
+<dialog id="authDlg" aria-labelledby="authTitle">
+  <div class="dlg">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h2 id="authTitle" style="font-size:22px">Sign in</h2><button class="btn btn-quiet btn-sm" type="button" id="authClose">Close</button></div>
+    <div class="dlg-tabs" role="tablist"><button type="button" role="tab" id="aIn" aria-selected="true">Sign in</button><button type="button" role="tab" id="aUp" aria-selected="false">Create account</button></div>
+    <form id="authForm" novalidate style="display:grid;gap:14px">
+      <div class="field" id="a-email"><label for="aEmail">Email</label><input class="input" id="aEmail" type="email" autocomplete="email" maxlength="120"><div class="err"></div></div>
+      <div class="field" id="a-pw"><label for="aPw">Password</label><div class="pw"><input class="input" id="aPw" type="password" autocomplete="current-password" maxlength="72"><button type="button" id="aShow" aria-label="Show password">Show</button></div><div class="err"></div><div class="note" id="pwHint" hidden>At least 10 characters.</div></div>
+      <button class="btn btn-accent" type="submit" id="authSubmit">Sign in</button>
+    </form>
+    <p class="note">Preview only. No account is created and nothing is stored. The live site hashes passwords with bcrypt and keeps sessions in secure cookies.</p>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[
+  { "industry": "Healthcare", "pattern": "\\b(health|hospital|medical|patient|clinic|pharma|ehr|dental)\\b" },
+  { "industry": "Finance", "pattern": "\\b(bank|banking|payment|fintech|insurance|credit|trading|crypto|financial)\\b" },
+  { "industry": "Government", "pattern": "\\b(government|federal|municipal|ministry|public sector|agency|military|defen[cs]e)\\b" },
+  { "industry": "Education", "pattern": "\\b(school|university|college|education|student)\\b" },
+  { "industry": "Retail", "pattern": "\\b(retail|e-?commerce|shop|store|loyalty|merchant)\\b" },
+  { "industry": "Energy", "pattern": "\\b(energy|utility|utilities|pipeline|power grid|oil|gas)\\b" },
+  { "industry": "Manufacturing", "pattern": "\\b(manufactur|industrial|scada|plc|ics)\\b" },
+  { "industry": "Technology", "pattern": "\\b(software|cloud|saas|firmware|router|server|browser|operating system|api)\\b" }
+]

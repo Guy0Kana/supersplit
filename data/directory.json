@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Firefox",
+    "category": "Browsers",
+    "purpose": "Open-source browser with strong tracking protection and a large add-on ecosystem.",
+    "license": "MPL-2.0",
+    "platforms": "Windows, macOS, Linux, Android, iOS",
+    "url": "https://www.mozilla.org/firefox/",
+    "reviewedOn": null,
+    "sort": 0
+  },
+  {
+    "name": "Tor Browser",
+    "category": "Browsers",
+    "purpose": "Routes traffic through the Tor network to hide your location from the sites you visit.",
+    "license": "Open source",
+    "platforms": "Windows, macOS, Linux, Android",
+    "url": "https://www.torproject.org/",
+    "reviewedOn": null,
+    "sort": 1
+  },
+  {
+    "name": "Brave",
+    "category": "Browsers",
+    "purpose": "Chromium-based browser with built-in ad and tracker blocking.",
+    "license": "MPL-2.0",
+    "platforms": "Windows, macOS, Linux, Android, iOS",
+    "url": "https://brave.com/",
+    "reviewedOn": null,
+    "sort": 2
+  },
+  {
+    "name": "Bitwarden",
+    "category": "Password managers",
+    "purpose": "Password manager with cloud sync and an open-source client.",
+    "license": "GPL-3.0 (clients)",
+    "platforms": "Windows, macOS, Linux, Android, iOS, Browser extension",
+    "url": "https://bitwarden.com/",
+    "reviewedOn": null,
+    "sort": 3
+  },
+  {
+    "name": "KeePassXC",
+    "category": "Password managers",
+    "purpose": "Offline password manager that keeps your vault in a local file.",
+    "license": "GPL",
+    "platforms": "Windows, macOS, Linux",
+    "url": "https://keepassxc.org/",
+    "reviewedOn": null,
+    "sort": 4
+  },
+  {
+    "name": "Signal",
+    "category": "Messaging",
+    "purpose": "End-to-end encrypted messaging and calls.",
+    "license": "AGPL-3.0",
+    "platforms": "Android, iOS, Windows, macOS, Linux",
+    "url": "https://signal.org/",
+    "reviewedOn": null,
+    "sort": 5
+  },
+  {
+    "name": "Element",
+    "category": "Messaging",
+    "purpose": "Encrypted team chat on the open Matrix network.",
+    "license": "Apache-2.0",
+    "platforms": "Windows, macOS, Linux, Android, iOS",
+    "url": "https://element.io/",
+    "reviewedOn": null,
+    "sort": 6
+  },
+  {
+    "name": "VeraCrypt",
+    "category": "Encryption and backups",
+    "purpose": "Encrypts whole drives or file containers.",
+    "license": "Apache-2.0 / TrueCrypt",
+    "platforms": "Windows, macOS, Linux",
+    "url": "https://veracrypt.io/",
+    "reviewedOn": null,
+    "sort": 7
+  },
+  {
+    "name": "Cryptomator",
+    "category": "Encryption and backups",
+    "purpose": "Encrypts files before they reach cloud storage.",
+    "license": "GPL-3.0",
+    "platforms": "Windows, macOS, Linux, Android, iOS",
+    "url": "https://cryptomator.org/",
+    "reviewedOn": null,
+    "sort": 8
+  },
+  {
+    "name": "restic",
+    "category": "Encryption and backups",
+    "purpose": "Fast, encrypted command-line backups to many storage types.",
+    "license": "BSD-2-Clause",
+    "platforms": "Windows, macOS, Linux",
+    "url": "https://restic.net/",
+    "reviewedOn": null,
+    "sort": 9
+  },
+  {
+    "name": "WireGuard",
+    "category": "Network and tracking protection",
+    "purpose": "Simple, modern VPN protocol built into many systems.",
+    "license": "GPL-2.0",
+    "platforms": "Windows, macOS, Linux, Android, iOS",
+    "url": "https://www.wireguard.com/",
+    "reviewedOn": null,
+    "sort": 10
+  },
+  {
+    "name": "uBlock Origin",
+    "category": "Network and tracking protection",
+    "purpose": "Content blocker that stops ads and trackers in the browser.",
+    "license": "GPL-3.0",
+    "platforms": "Browser extension",
+    "url": "https://github.com/gorhill/uBlock",
+    "reviewedOn": null,
+    "sort": 11
+  }
+]

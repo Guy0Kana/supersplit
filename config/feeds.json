@@ -1,0 +1,6 @@
+[
+  { "name": "BleepingComputer", "url": "https://www.bleepingcomputer.com/feed/", "kind": "breach-news" },
+  { "name": "The Hacker News", "url": "https://feeds.feedburner.com/TheHackersNews", "kind": "breach-news" },
+  { "name": "Krebs on Security", "url": "https://krebsonsecurity.com/feed/", "kind": "breach-news" },
+  { "name": "CISA Advisories", "url": "https://www.cisa.gov/cybersecurity-advisories/all.xml", "kind": "advisory" }
+]

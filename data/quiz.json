@@ -1,0 +1,162 @@
+[
+  {
+    "id": "acc",
+    "name": "Accounts and access",
+    "soc": "Security: logical access (CC6)",
+    "qs": [
+      {
+        "q": "Is multi-factor sign-in turned on for email and admin accounts?",
+        "fix": "Turn on multi-factor sign-in for email and every admin account first.",
+        "w": 3
+      },
+      {
+        "q": "Does everyone use a password manager for work logins?",
+        "fix": "Roll out a password manager and retire reused passwords.",
+        "w": 2
+      },
+      {
+        "q": "Do leavers lose access within one working day?",
+        "fix": "Write a leaver checklist and revoke accounts the day someone departs.",
+        "w": 3
+      },
+      {
+        "q": "Are admin rights limited to the people who need them?",
+        "fix": "List admin accounts and remove rights nobody needs.",
+        "w": 2
+      },
+      {
+        "q": "Are shared accounts avoided or tracked?",
+        "fix": "Replace shared logins with named accounts, or record who holds each one.",
+        "w": 1
+      }
+    ]
+  },
+  {
+    "id": "dev",
+    "name": "Devices and patching",
+    "soc": "Security: system operations (CC7)",
+    "qs": [
+      {
+        "q": "Are laptops and phones encrypted?",
+        "fix": "Enable built-in disk encryption on every laptop and phone.",
+        "w": 2
+      },
+      {
+        "q": "Are critical patches applied within 14 days?",
+        "fix": "Set a 14-day target for critical patches and track it monthly.",
+        "w": 3
+      },
+      {
+        "q": "Do you keep a list of company devices and software?",
+        "fix": "Start a simple inventory sheet of devices and key software.",
+        "w": 2
+      },
+      {
+        "q": "Is endpoint protection running on every computer?",
+        "fix": "Install and centrally monitor endpoint protection on all computers.",
+        "w": 2
+      },
+      {
+        "q": "Are automatic updates and screen locks switched on?",
+        "fix": "Enforce automatic updates and a short screen-lock timeout.",
+        "w": 1
+      }
+    ]
+  },
+  {
+    "id": "bak",
+    "name": "Backups and recovery",
+    "soc": "Availability (A1)",
+    "qs": [
+      {
+        "q": "Is your critical data backed up automatically?",
+        "fix": "Automate backups of the data you could not afford to lose.",
+        "w": 3
+      },
+      {
+        "q": "Is a copy kept offsite or offline?",
+        "fix": "Keep one backup copy offsite or offline.",
+        "w": 3
+      },
+      {
+        "q": "Have you restored from a backup in the last year?",
+        "fix": "Test a restore this quarter and write down how long it took.",
+        "w": 2
+      },
+      {
+        "q": "Is there a written target for how fast you must recover?",
+        "fix": "Agree a recovery time target for each critical system.",
+        "w": 1
+      },
+      {
+        "q": "Are backups protected if an account is compromised?",
+        "fix": "Use separate credentials and delete protection for backups.",
+        "w": 2
+      }
+    ]
+  },
+  {
+    "id": "ppl",
+    "name": "Email and people",
+    "soc": "Security: control environment and communication (CC1, CC2)",
+    "qs": [
+      {
+        "q": "Has everyone had phishing awareness training?",
+        "fix": "Run a short phishing session for all staff each year.",
+        "w": 2
+      },
+      {
+        "q": "Are SPF, DKIM and DMARC set up for your domain?",
+        "fix": "Publish SPF, DKIM and DMARC records for your email domain.",
+        "w": 2
+      },
+      {
+        "q": "Is there an easy way to report a suspicious email?",
+        "fix": "Add a report button or a single address for suspicious emails.",
+        "w": 1
+      },
+      {
+        "q": "Does everyone know who to tell if something goes wrong?",
+        "fix": "Name an incident contact and share it with the whole team.",
+        "w": 2
+      },
+      {
+        "q": "Do new starters get security basics on day one?",
+        "fix": "Add a short security briefing to onboarding.",
+        "w": 1
+      }
+    ]
+  },
+  {
+    "id": "gov",
+    "name": "Governance and SOC 2 readiness",
+    "soc": "Security: risk assessment and vendor risk (CC3, CC9)",
+    "qs": [
+      {
+        "q": "Is there a written security policy approved by leadership?",
+        "fix": "Write a short security policy and have leadership approve it.",
+        "w": 2
+      },
+      {
+        "q": "Do you keep a risk register and review it yearly?",
+        "fix": "Start a risk register with your top ten risks and review it yearly.",
+        "w": 2
+      },
+      {
+        "q": "Are suppliers with access to your data reviewed first?",
+        "fix": "Review security basics for any supplier that handles your data.",
+        "w": 2
+      },
+      {
+        "q": "Do you have a written incident response plan?",
+        "fix": "Write a one-page incident plan: who, what, and who to call.",
+        "w": 3
+      },
+      {
+        "q": "Are access and security logs kept and reviewed?",
+        "fix": "Keep logs for at least 90 days and review them on a schedule.",
+        "w": 2
+      }
+    ]
+  }
+]
