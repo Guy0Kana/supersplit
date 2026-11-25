@@ -1,6 +1,6 @@
 # Super Split
 
-A cybersecurity website that puts threat intelligence, a self-assessment quiz, privacy guidance and security services in one place. Built for the **Cloud Hosting & Web Security** coursework and deployed on a self-managed Azure Ubuntu VM.
+A cybersecurity website that puts threat intelligence, a self-assessment quiz, privacy guidance and security services in one place, deployed on a self-managed Azure Ubuntu VM.
 
 **Live site:** https://supersplit.tech
 
